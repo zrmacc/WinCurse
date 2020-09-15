@@ -1,0 +1,100 @@
+---
+title: "README"
+author: "Zachary McCaw"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    keep_md: TRUE
+--- 
+
+# Compute Winner's Curse Correction
+
+Zachary McCaw <br>
+Updated: 20-09-15
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+### Description
+
+This package calculates the winner's curse correction using the model proposed by [Turley *et al* (2018)](https://pubmed.ncbi.nlm.nih.gov/29292387/), implemented via the Expectation-Maximization algorithm. Also see [MGMM](https://github.com/zrmacc/MGMM) for fitting Gaussian Mixture Models more generally. 
+
+## Installation
+
+```{R, eval=FALSE}
+devtools::install_github(repo = 'zrmacc/WinCurse')
+```
+
+## Model
+This package fits the following hierarchical model:
+$$
+Z_{i} \sim \text{Bern}(\pi) \\
+\theta_{i}|(Z_{i}=1) \sim \delta_{0} \\
+\theta_{i}|(Z_{i}=0) \sim N(0, \tau^{2}) \\
+\hat{\theta}_{i}|\theta_{i} \sim N(\theta_{i}, \sigma_{i}^{2})
+$$
+
+where $\pi$ is the probability of the null component, $\delta_{0}$ is a point-mass on zero, $\tau^{2}$ is a variance component for the non-null parameters, $\theta_{i}$ is the true underlying parameter, $\hat{\theta}_{i}$ is the corresponding estimate, and $\sigma_{i}^{2}$ is the sampling variance, assumed known. 
+
+## Examples
+
+### Data
+
+Example may be loaded via:
+
+```{R}
+library(WinCurse)
+data(wc_data)
+head(wc_data)
+```
+
+Here: 
+
+* `non_null` is the generative component, 1 if non-null, 0 if null. 
+* `theta` is the estimated parameter. 
+* `se` is the standard error of the estimated parameter. 
+
+The true $\pi = 0.75$ and the true $\tau^{2} = 0.05$. 
+
+### Estimation
+
+To fit the winner's curse model: 
+```{r}
+set.seed(100)
+fit <- fit.WinCurse(
+  theta = wc_data$theta,
+  se = wc_data$se,
+  pi = 0.5,
+  tau2 = 1,
+  eps = 1e-12
+)
+show(fit)
+```
+
+#### Outputs
+
+The output of `fit.WinCurse` is an object of class `winCurse` with these slots.
+
+* `@Assignments` containing the component assignments and assignment entropy. Higher entropy means the assignment is less certain. 
+
+```{r}
+head(fit@Assignments)
+```
+
+* `@Estimates` containing the parameter estimates:
+
+```{r}
+fit@Estimates
+```
+
+* `@Expectations` containing the posterior expectation of $\theta_{i}$ given $\hat{\theta}_{i}$, which is shrunk towards zero. 
+
+```{r}
+head(fit@Expectations)
+```
+* `@Responsibilities` containing the posterior membership probabilities to the null and non-null components. 
+
+```{r}
+head(fit@Responsibilities)
+```

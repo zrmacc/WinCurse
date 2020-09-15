@@ -1,3 +1,11 @@
+---
+title: "README"
+author: "Zachary McCaw"
+date: "2020-09-15"
+output: 
+  html_document: 
+    keep_md: TRUE
+--- 
 
 # Compute Winner's Curse Correction
 
@@ -108,7 +116,7 @@ fit@Estimates
 ## [1] 0.7656391
 ## 
 ## $tau2
-## [1] 0.04803448
+## [1] 0.04803447
 ```
 
 * `@Expectations` containing the posterior expected effect size given the observed effect size. The posterior expectations are shrunk towards zero. 
@@ -119,7 +127,7 @@ head(fit@Expectations)
 ```
 
 ```
-## [1]  0.165374887 -0.001272114 -0.059008240  0.020476310  0.008183376
+## [1]  0.165374887 -0.001272114 -0.059008241  0.020476311  0.008183376
 ## [6] -0.000698325
 ```
 * `@Responsibilities` containing the posterior probabilities of membership to the null and non-null components. 

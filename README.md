@@ -1,11 +1,3 @@
----
-title: "README"
-author: "Zachary McCaw"
-date: "2020-09-15"
-output: 
-  html_document: 
-    keep_md: TRUE
---- 
 
 # Compute Winner's Curse Correction
 

@@ -411,8 +411,7 @@ head(wc_data)</code></pre>
 <div id="estimation" class="section level3">
 <h3>Estimation</h3>
 <p>To fit the winner’s curse model:</p>
-<pre class="r"><code>set.seed(100)
-fit &lt;- fit.WinCurse(
+<pre class="r"><code>fit &lt;- fit.WinCurse(
   theta = wc_data$theta,
   se = wc_data$se,
   pi = 0.5,

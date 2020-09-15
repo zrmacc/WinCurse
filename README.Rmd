@@ -53,7 +53,6 @@ The true $\pi = 0.75$ and the true $\tau^{2} = 0.05$.
 
 To fit the winner's curse model: 
 ```{r}
-set.seed(100)
 fit <- fit.WinCurse(
   theta = wc_data$theta,
   se = wc_data$se,

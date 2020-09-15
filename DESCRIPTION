@@ -9,7 +9,7 @@ Authors@R:
            email = "zmccaw@alumni.harvard.edu",
            comment = c(ORCID = "0000-0002-2006-9828"))
 Description: Implements winner's curse correction. 
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.3.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

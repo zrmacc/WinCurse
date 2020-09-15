@@ -383,13 +383,7 @@ summary {
 </div>
 <div id="model" class="section level2">
 <h2>Model</h2>
-<p>This package fits the following hierarchical model: <span class="math display">\[
-Z_{i} \sim \text{Bern}(\pi) \\
-\theta_{i}|(Z_{i}=1) \sim \delta_{0} \\
-\theta_{i}|(Z_{i}=0) \sim N(0, \tau^{2}) \\
-\hat{\theta}_{i}|\theta_{i} \sim N(\theta_{i}, \sigma_{i}^{2})
-\]</span></p>
-<p>where <span class="math inline">\(\pi\)</span> is the probability of the null component, <span class="math inline">\(\delta_{0}\)</span> is a point-mass on zero, <span class="math inline">\(\tau^{2}\)</span> is a variance component for the non-null parameters, <span class="math inline">\(\theta_{i}\)</span> is the true underlying parameter, <span class="math inline">\(\hat{\theta}_{i}\)</span> is the corresponding estimate, and <span class="math inline">\(\sigma_{i}^{2}\)</span> is the sampling variance, assumed known.</p>
+<p>See the model specification <a href="https://github.com/zrmacc/WinCurse/blob/master/vignettes/Model.pdf">here</a>. The parameter estimated by this package are the probability of the null component <span class="math inline">\(\pi\)</span> and the variance component <span class="math inline">\(\tau^{2}\)</span> of the non-null component.</p>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>

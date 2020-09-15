@@ -17,15 +17,7 @@ devtools::install_github(repo = 'zrmacc/WinCurse')
 ```
 
 ## Model
-This package fits the following hierarchical model:
-$$
-Z_{i} \sim \text{Bern}(\pi) \\
-\theta_{i}|(Z_{i}=1) \sim \delta_{0} \\
-\theta_{i}|(Z_{i}=0) \sim N(0, \tau^{2}) \\
-\hat{\theta}_{i}|\theta_{i} \sim N(\theta_{i}, \sigma_{i}^{2})
-$$
-
-where $\pi$ is the probability of the null component, $\delta_{0}$ is a point-mass on zero, $\tau^{2}$ is a variance component for the non-null parameters, $\theta_{i}$ is the true underlying parameter, $\hat{\theta}_{i}$ is the corresponding estimate, and $\sigma_{i}^{2}$ is the sampling variance, assumed known. 
+See the model specification [here](https://github.com/zrmacc/WinCurse/blob/master/vignettes/Model.pdf). The parameter estimated by this package are the probability of the null component $\pi$ and the variance component $\tau^{2}$ of the non-null component. 
 
 ## Examples
 

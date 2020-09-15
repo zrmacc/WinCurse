@@ -1,3 +1,12 @@
+---
+title: "README"
+author: "Zachary McCaw"
+date: "2020-09-15"
+output: 
+  html_document: 
+    keep_md: TRUE
+--- 
+
 # Compute Winner's Curse Correction
 
 Zachary McCaw <br>
@@ -17,7 +26,7 @@ devtools::install_github(repo = 'zrmacc/WinCurse')
 ```
 
 ## Model
-See the model specification [here](https://github.com/zrmacc/WinCurse/blob/master/vignettes/Model.pdf). The parameter estimated by this package are the probability of the null component $\pi$ and the variance component $\tau^{2}$ of the non-null component. 
+See the model specification [here](https://github.com/zrmacc/WinCurse/blob/master/vignettes/Model.pdf). The parameters estimated by this package are the probability of membership to the null component $\pi$ and the variance component $\tau^{2}$ of the non-null component. 
 
 ## Examples
 
@@ -79,7 +88,7 @@ show(fit)
 
 The output of `fit.WinCurse` is an object of class `winCurse` with these slots.
 
-* `@Assignments` containing the component assignments and assignment entropy. Higher entropy means the assignment is less certain. 
+* `@Assignments` containing the component assignments and normalized (0,1) assignment entropy. Higher entropy means the assignment is less certain. 
 
 
 ```r
@@ -96,7 +105,7 @@ head(fit@Assignments)
 ## 6        0 0.5075906
 ```
 
-* `@Estimates` containing the parameter estimates:
+* `@Estimates` containing the final parameter estimates:
 
 
 ```r
@@ -111,7 +120,7 @@ fit@Estimates
 ## [1] 0.04803448
 ```
 
-* `@Expectations` containing the posterior expectation of $\theta_{i}$ given $\hat{\theta}_{i}$, which is shrunk towards zero. 
+* `@Expectations` containing the posterior expected effect size given the observed effect size. The posterior expectations are shrunk towards zero. 
 
 
 ```r
@@ -122,7 +131,7 @@ head(fit@Expectations)
 ## [1]  0.165374887 -0.001272114 -0.059008240  0.020476310  0.008183376
 ## [6] -0.000698325
 ```
-* `@Responsibilities` containing the posterior membership probabilities to the null and non-null components. 
+* `@Responsibilities` containing the posterior probabilities of membership to the null and non-null components. 
 
 
 ```r
@@ -137,4 +146,16 @@ head(fit@Responsibilities)
 ## 4 0.8032057 0.1967943
 ## 5 0.8636100 0.1363900
 ## 6 0.8874397 0.1125603
+```
+
+### Posterior Expectations
+For pre-computed $\pi$ and $\tau^{2}$, the posterior expected effect size may be calculated via:
+
+```r
+post_exp <- PostExp(
+  theta = wc_data$theta,
+  se = wc_data$se,
+  pi = 0.75,
+  tau2 = 0.05
+)
 ```

@@ -43,3 +43,10 @@ non-null components.
 \description{
 Fit Winner's Curse Model
 }
+\examples{
+data(wc_data)
+fit <- fit.WinCurse(
+  theta = wc_data$theta,
+  se = wc_data$se
+)
+}

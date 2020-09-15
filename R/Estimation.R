@@ -140,7 +140,7 @@ EM.Update <- function(
         theta = theta, se = se, tau2 = x, gamma = gamma
       )
     },
-    lower = 1e-6,
+    lower = 1e-8,
     upper = 1,
     extendInt = "downX"
   )$root
@@ -169,6 +169,47 @@ EM.Update <- function(
 
 # -----------------------------------------------------------------------------
 
+#' Posterior Expectation
+#' 
+#' Calculates the posterior expectation given available `pi` and `tau2`.
+#' 
+#' @param theta Parameter estimates.
+#' @param se Parameter standard errors. 
+#' @param pi Initial value of pi, the proportion of null parameters. 
+#' @param tau2 Initial value of tau, the variance component.
+#' @export
+#' @return Numeric vector of the posterior expected effect sizes. 
+#' @examples
+#' data(wc_data)
+#' post_exp <- PostExp(
+#'   theta = wc_data$theta,
+#'   se = wc_data$se,
+#'   pi = 0.75,
+#'   tau2 = 0.05
+#' )
+
+PostExp <- function(
+  theta,
+  se,
+  pi,
+  tau2
+) {
+  
+  # Responsibilities.
+  gamma <- Responsibility(
+    theta = theta,
+    se = se,
+    pi = pi,
+    tau2 = tau2
+  )
+  
+  # Posterior expectation.
+  out <- theta * (tau2) / (se^2 + tau2) * (1 - gamma)
+  return(out)
+}
+
+# -----------------------------------------------------------------------------
+
 #' Fit Winner's Curse Model
 #' 
 #' @param theta Parameter estimates.
@@ -189,6 +230,12 @@ EM.Update <- function(
 #'   \item `@Responsibilities`: Probabilities the parameter came from the null and 
 #'     non-null components. 
 #' }
+#' @examples
+#' data(wc_data)
+#' fit <- fit.WinCurse(
+#'   theta = wc_data$theta,
+#'   se = wc_data$se
+#' )
 
 fit.WinCurse <- function(
   theta,

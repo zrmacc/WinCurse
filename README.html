@@ -383,7 +383,7 @@ summary {
 </div>
 <div id="model" class="section level2">
 <h2>Model</h2>
-<p>See the model specification <a href="https://github.com/zrmacc/WinCurse/blob/master/vignettes/Model.pdf">here</a>. The parameter estimated by this package are the probability of the null component <span class="math inline">\(\pi\)</span> and the variance component <span class="math inline">\(\tau^{2}\)</span> of the non-null component.</p>
+<p>See the model specification <a href="https://github.com/zrmacc/WinCurse/blob/master/vignettes/Model.pdf">here</a>. The parameters estimated by this package are the probability of membership to the null component <span class="math inline">\(\pi\)</span> and the variance component <span class="math inline">\(\tau^{2}\)</span> of the non-null component.</p>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
@@ -430,7 +430,7 @@ show(fit)</code></pre>
 <h4>Outputs</h4>
 <p>The output of <code>fit.WinCurse</code> is an object of class <code>winCurse</code> with these slots.</p>
 <ul>
-<li><code>@Assignments</code> containing the component assignments and assignment entropy. Higher entropy means the assignment is less certain.</li>
+<li><code>@Assignments</code> containing the component assignments and normalized (0,1) assignment entropy. Higher entropy means the assignment is less certain.</li>
 </ul>
 <pre class="r"><code>head(fit@Assignments)</code></pre>
 <pre><code>##   non_null    entroy
@@ -441,7 +441,7 @@ show(fit)</code></pre>
 ## 5        0 0.5747059
 ## 6        0 0.5075906</code></pre>
 <ul>
-<li><code>@Estimates</code> containing the parameter estimates:</li>
+<li><code>@Estimates</code> containing the final parameter estimates:</li>
 </ul>
 <pre class="r"><code>fit@Estimates</code></pre>
 <pre><code>## $pi
@@ -450,13 +450,13 @@ show(fit)</code></pre>
 ## $tau2
 ## [1] 0.04803448</code></pre>
 <ul>
-<li><code>@Expectations</code> containing the posterior expectation of <span class="math inline">\(\theta_{i}\)</span> given <span class="math inline">\(\hat{\theta}_{i}\)</span>, which is shrunk towards zero.</li>
+<li><code>@Expectations</code> containing the posterior expected effect size given the observed effect size. The posterior expectations are shrunk towards zero.</li>
 </ul>
 <pre class="r"><code>head(fit@Expectations)</code></pre>
 <pre><code>## [1]  0.165374887 -0.001272114 -0.059008240  0.020476310  0.008183376
 ## [6] -0.000698325</code></pre>
 <ul>
-<li><code>@Responsibilities</code> containing the posterior membership probabilities to the null and non-null components.</li>
+<li><code>@Responsibilities</code> containing the posterior probabilities of membership to the null and non-null components.</li>
 </ul>
 <pre class="r"><code>head(fit@Responsibilities)</code></pre>
 <pre><code>##        null  non_null
@@ -467,6 +467,16 @@ show(fit)</code></pre>
 ## 5 0.8636100 0.1363900
 ## 6 0.8874397 0.1125603</code></pre>
 </div>
+</div>
+<div id="posterior-expectations" class="section level3">
+<h3>Posterior Expectations</h3>
+<p>For pre-computed <span class="math inline">\(\pi\)</span> and <span class="math inline">\(\tau^{2}\)</span>, the posterior expected effect size may be calculated via:</p>
+<pre class="r"><code>post_exp &lt;- PostExp(
+  theta = wc_data$theta,
+  se = wc_data$se,
+  pi = 0.75,
+  tau2 = 0.05
+)</code></pre>
 </div>
 </div>
 </div>

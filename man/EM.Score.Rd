@@ -16,8 +16,9 @@ EM.Score(theta, se, tau2, gamma)
 \item{gamma}{Responsibilities.}
 }
 \value{
-Numeric EM objective.
+Numeric value of the EM score for tau2 (zero at the M-step optimum).
 }
 \description{
-EM Score Equation for Tau2
+Score (derivative) of the EM objective with respect to tau2.
 }
+\keyword{internal}

@@ -1,2 +1,17 @@
 ^Meta\.Rproj$
 ^\.Rproj\.user$
+^\.github$
+^\.Rhistory$
+^\.git$
+^\.gitignore$
+^README\.html$
+^\.cache$
+^\.Rcache$
+^\*\.Rproj$
+^vignettes\/\*\.aux$
+^vignettes\/\*\.log$
+^vignettes\/\*\.out$
+^vignettes\/\*\.tex$
+^vignettes\/\*\.bbl$
+^vignettes\/\*\.blg$
+^Development$

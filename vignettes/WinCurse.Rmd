@@ -1,0 +1,95 @@
+---
+title: "WinCurse: Winner's Curse Correction"
+author: "Zachary McCaw"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{WinCurse: Winner's Curse Correction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+**WinCurse** implements winner's curse correction using the two-component mixture model of Turley *et al.* (2018), fitted by the Expectation-Maximization (EM) algorithm.
+
+**Model.** For each of $n$ independent effect sizes $(\theta_{1}, \dots, \theta_{n})$, we observe an estimate $\hat{\theta}_{i}$ and corresponding standard error $\sigma_{i}$. With probability $\pi$, the true effect is exactly zero, and with probability $1 - \pi$ the true effect is drawn from a normal distribution with mean zero and variance $\tau^2$ (non-null). The estimated effect size $\hat{\theta}_{i}$ is normally distributed about the true effect size $\theta_{i}$ with variance $\sigma_{i}^{2}$:
+
+$$
+\hat{\theta}_{i} | \theta_{i} \sim N(\theta_{i}, \sigma_{i}^{2})
+$$
+Marginally, $\hat{\theta}_{i}$ is drawn from a mixture of two normals:
+
+$$
+\hat{\theta}_{i} \sim \pi \cdot N(0, \sigma_{i}^{2}) + (1 - \pi) \cdot N(0, \tau^{2} + \sigma_{i}^{2})
+$$
+
+The package estimates $\pi$ and $\tau^2$ by maximum likelihood via the EM algorithm. It then computes:
+
+* The maximum *a posteriori* component assignment (i.e. null vs non-null).
+
+* The posterior probabilities of belonging to the null and non-null components.
+
+* The posterior expected effect size $\mathbb{E}(\theta_{i} | \hat{\theta}_{i})$. 
+
+
+## Quick start
+
+Load the package and example data:
+
+```{r}
+library(WinCurse)
+data(wc_data)
+```
+
+The data contain effect estimates (`theta`), standard errors (`se`), and the true generative component (`non_null`). Fit the model with `fit.WinCurse`:
+
+```{r}
+fit <- fit.WinCurse(
+  theta = wc_data$theta,
+  se = wc_data$se
+)
+show(fit)
+```
+
+## Outputs
+
+The fitted object has slots:
+
+- **Estimates**: `pi` (null proportion) and `tau2` (non-null variance).
+
+```{r}
+fit@Estimates
+```
+
+- **Assignments**: maximum a posteriori component and assignment entropy.
+
+```{r}
+head(fit@Assignments)
+```
+
+- **Expectations**: posterior expected effect sizes (shrunk toward zero).
+
+```{r}
+head(fit@Expectations)
+```
+
+- **Responsibilities**: posterior probabilities of null vs non-null.
+
+```{r}
+head(fit@Responsibilities)
+```
+
+## Posterior calculations only
+
+For pre-specified $\pi$ and $\tau^2$, use `PostExp` to compute posterior expectations without fitting:
+
+```{r}
+post_exp <- PostExp(
+  theta = wc_data$theta,
+  se = wc_data$se,
+  pi = 0.75,
+  tau2 = 0.05
+)
+```
+

@@ -16,8 +16,9 @@ Responsibility(theta, se, pi, tau2)
 \item{tau2}{Variance component.}
 }
 \value{
-Vector of responsibilities.
+Vector of responsibilities (null component probabilities).
 }
 \description{
-Responsibility
+Computes posterior probability of null component membership.
 }
+\keyword{internal}

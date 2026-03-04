@@ -11,7 +11,8 @@ fit.WinCurse(
   tau2 = NULL,
   eps = 1e-06,
   maxit = 100,
-  report = FALSE
+  report = FALSE,
+  data = NULL
 )
 }
 \arguments{
@@ -23,11 +24,13 @@ fit.WinCurse(
 
 \item{tau2}{Initial value of tau, the variance component.}
 
-\item{eps}{Tolerance for Newton-Raphson iterations.}
+\item{eps}{Tolerance for EM iterations (minimum objective increment).}
 
-\item{maxit}{Maximum number of NR iterations.}
+\item{maxit}{Maximum number of EM iterations.}
 
 \item{report}{Report fitting progress?}
+
+\item{data}{Optional data frame; if provided, \code{theta} and \code{se} are column names.}
 }
 \value{
 Object of class 'winCurse' containing:
@@ -36,8 +39,8 @@ Object of class 'winCurse' containing:
 and assignment entropy.
 \item \verb{@Estimates}: Estimated model parameters.
 \item \verb{@Expectations}: Posterior expected effect sizes.
-\item \verb{@Responsibilities}: Probabilities the parameter came from the null and
-non-null components.
+\item \code{Responsibilities}: Probabilities null and non-null.
+\item \code{Convergence}: List with \code{niter} and \code{converged}.
 }
 }
 \description{
@@ -45,8 +48,6 @@ Fit Winner's Curse Model
 }
 \examples{
 data(wc_data)
-fit <- fit.WinCurse(
-  theta = wc_data$theta,
-  se = wc_data$se
-)
+fit <- fit.WinCurse(theta = wc_data$theta, se = wc_data$se)
+fit <- fit.WinCurse(theta = "theta", se = "se", data = wc_data)
 }

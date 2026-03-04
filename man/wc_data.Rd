@@ -3,9 +3,9 @@
 \docType{data}
 \name{wc_data}
 \alias{wc_data}
-\title{Sample Winners Curse Data}
+\title{Sample Winner's Curse Data}
 \format{
-A data.frame containing four fields:
+A data.frame containing three fields:
 \describe{
 \item{non_null}{Generative component, 1 if non-null, 0 otherwise.}
 \item{theta}{Parameter estimate.}

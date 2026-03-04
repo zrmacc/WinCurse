@@ -1,7 +1,9 @@
 Package: WinCurse
-Title: Winners Curse Correction
+Title: Winner's Curse Correction
 Date: 2020-09-15
 Version: 0.0.1
+Author: Zachary McCaw [aut, cre] (<https://orcid.org/0000-0002-2006-9828>)
+Maintainer: Zachary McCaw <zmccaw@alumni.harvard.edu>
 Authors@R: 
     person(given = "Zachary",
            family = "McCaw",
@@ -17,4 +19,11 @@ Imports:
   methods,
   stats
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+Suggests:
+  knitr,
+  rmarkdown,
+  testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Config/build/clean-inst-doc: false
+RoxygenNote: 7.3.3

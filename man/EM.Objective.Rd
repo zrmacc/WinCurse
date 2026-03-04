@@ -18,8 +18,9 @@ EM.Objective(theta, se, pi, tau2, gamma)
 \item{gamma}{Responsibilities.}
 }
 \value{
-Numeric EM objective.
+Numeric EM objective (expected complete-data log-likelihood).
 }
 \description{
-EM Objective
+Expected complete-data log-likelihood for the EM algorithm.
 }
+\keyword{internal}

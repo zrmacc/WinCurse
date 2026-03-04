@@ -4,22 +4,25 @@
 \alias{PostExp}
 \title{Posterior Expectation}
 \usage{
-PostExp(theta, se, pi, tau2)
+PostExp(theta, se, pi, tau2, data = NULL)
 }
 \arguments{
-\item{theta}{Parameter estimates.}
+\item{theta}{Parameter estimates (numeric vector), or column name if \code{data} is given.}
 
-\item{se}{Parameter standard errors.}
+\item{se}{Parameter standard errors (numeric vector), or column name if \code{data} is given.}
 
-\item{pi}{Initial value of pi, the proportion of null parameters.}
+\item{pi}{Proportion of null parameters (numeric scalar between zero and one).}
 
-\item{tau2}{Initial value of tau, the variance component.}
+\item{tau2}{Variance component (single positive number).}
+
+\item{data}{Optional data frame; if provided, \code{theta} and \code{se} are taken as column names.}
 }
 \value{
 Numeric vector of the posterior expected effect sizes.
 }
 \description{
 Calculates the posterior expectation given available \code{pi} and \code{tau2}.
+\code{theta} and \code{se} must have the same length and \code{se} must be positive.
 }
 \examples{
 data(wc_data)
@@ -29,4 +32,5 @@ post_exp <- PostExp(
   pi = 0.75,
   tau2 = 0.05
 )
+PostExp(theta = "theta", se = "se", pi = 0.75, tau2 = 0.05, data = wc_data)
 }

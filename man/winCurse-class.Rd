@@ -19,5 +19,8 @@ and assignment entropy.}
 
 \item{\code{Responsibilities}}{Probabilities the parameter came from the null and
 non-null components.}
+
+\item{\code{Convergence}}{List with \code{niter} (number of EM iterations) and
+\code{converged} (logical).}
 }}
 

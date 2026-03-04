@@ -4,7 +4,7 @@
 \alias{EM.Update}
 \title{EM Update}
 \usage{
-EM.Update(theta, se, pi, tau2)
+EM.Update(theta, se, pi, tau2, tau2.upper = 1)
 }
 \arguments{
 \item{theta}{Parameter estimates.}
@@ -14,6 +14,8 @@ EM.Update(theta, se, pi, tau2)
 \item{pi}{Proportion null parameters.}
 
 \item{tau2}{Variance component.}
+
+\item{tau2.upper}{Upper bound for tau2 in uniroot (optional).}
 }
 \value{
 List containing:
@@ -24,5 +26,6 @@ List containing:
 }
 }
 \description{
-EM Update
+One iteration of the EM algorithm (E-step and M-step).
 }
+\keyword{internal}
